@@ -20,11 +20,12 @@ class WeatherService
      */
     public function getCoordinates($city)
     {
-        $response = Http::get($this->geoUrl . 'direct', [
-            'q' => $city,
-            'limit' => 1,
-            'appid' => $this->apiKey
-        ]);
+        $response = Http::withOptions(['verify' => false])
+            ->get($this->geoUrl . 'direct', [
+                'q' => $city,
+                'limit' => 1,
+                'appid' => $this->apiKey
+            ]);
 
         return $response->json();
     }
@@ -35,12 +36,13 @@ class WeatherService
 
     public function getCurrentWeather($lat, $lon)
     {
-        $response = Http::get($this->baseUrl . 'weather', [
-            'lat' => $lat,
-            'lon' => $lon,
-            'appid' => $this->apiKey,
-            'units' => 'metric'
-        ]);
+        $response = Http::withOptions(['verify' => false])
+            ->get($this->baseUrl . 'weather', [
+                'lat' => $lat,
+                'lon' => $lon,
+                'appid' => $this->apiKey,
+                'units' => 'metric'
+            ]);
 
         return $response->json();
     }
@@ -51,12 +53,13 @@ class WeatherService
 
     public function getForecast($lat, $lon)
     {
-        $response = Http::get($this->baseUrl . 'forecast', [
-            'lat' => $lat,
-            'lon' => $lon,
-            'appid' => $this->apiKey,
-            'units' => 'metric'
-        ]);
+        $response = Http::withOptions(['verify' => false])
+            ->get($this->baseUrl . 'forecast', [
+                'lat' => $lat,
+                'lon' => $lon,
+                'appid' => $this->apiKey,
+                'units' => 'metric'
+            ]);
 
         // Process the forecast to get daily forecasts
         $forecast = $response->json();
