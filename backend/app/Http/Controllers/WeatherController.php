@@ -34,8 +34,8 @@ class WeatherController extends Controller
         }
         $lat = $coordinates[0]['lat'];
         $lon = $coordinates[0]['lon'];
-        $city = $coordinates[0]['city'];
-        $country = coordinates[0]['country'];
+        $city = $coordinates[0]['name'];
+        $country = $coordinates[0]['country'];
 
         // Get current weather
         $currentWeather = $this->weatherService->getCurrentWeather($lat, $lon);
@@ -46,7 +46,7 @@ class WeatherController extends Controller
         //Combine data
         $data = [
             'location' => [
-                'city' => $cityName,
+                'city' => $city,
                 'country' => $country,
                 'lat' => $lat,
                 'lon' => $lon,
